@@ -17,7 +17,7 @@ R: 1 vez
 
 Q:
 ```js
- db.registros.find( { "nome_do_indicado": "Natalie Portman" } )
+ db.registros.countDocuments({nome_do_indicado: "Natalie Portman", vencedor: "true"})
 ```
 
 * Amy Adams já ganhou algum Oscar?
@@ -26,7 +26,7 @@ R: Nunca ganhou.
 
 Q:
 ```js
- db.registros.find( { "nome_do_indicado": "Amy Adams" } )
+ db.registros.countDocuments({nome_do_indicado: "Amy Adams", vencedor: "true"})
 ```
 
 * A série de filmes Toy Story ganhou um Oscar em quais anos?
