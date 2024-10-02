@@ -49,74 +49,102 @@ Q:
 
 * Quem ganhou o primeiro Oscar para Melhor Atriz? Em que ano?
 
-R:
+R: Janet Gaynor, ganhou em 1928
 
 Q:
 ```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
+ db.registros.find({categoria:"ACTRESS",vencedor:"true"}).limit(1)
 ```
 
 * Na campo "Vencedor", altere todos os valores com "true" para 1 e todos os valores "false" para 0.
 
-R:
-
 Q:
 ```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
+ db.registros.updateMany({ vencedor: "true" }, { $set: { vencedor: 1 } })
+```
+
+```js
+ db.registros.updateMany({ vencedor: "false" }, { $set: { vencedor: 0 } } )
 ```
 
 * Em qual edição do Oscar "Crash" concorreu ao Oscar?
 
-R:
+R: 2006
 
 ```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
+ db.registros.find({ nome_do_filme: "Crash" }, { ano_cerimonia: -1, vencedor: 1 } )
+```
+
+* Bom... dê um Oscar para um filme que merece muito, mas não ganhou.
+
+R: Um filme que que merecia ter vencido o Oscar de Melhor Filme foi "O Resgate do Soldado Ryan"
+
+```js
+db.registros.insertOne({ ano_filmagem: 1997, ano_cerimonia: 1998, cerimonia: 51, categoria: "filme de guerra", nome_do_indicado: "Tom Hanks", nome_do_filme: "O Resgate do Soldado Ryan", vencedor: 1 })
 ```
 
 * O filme Central do Brasil aparece no Oscar?
 
-R:
+R: Não aparece no Oscar
 
 ```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
+ db.registros.countDocuments({ nome_do_filme: /Central do Brasil/i })
 ```
 
 * Inclua no banco 3 filmes que nunca foram nem nomeados ao Oscar, mas que merecem ser. 
 
-R:
+R: "A Fantástica Fábrica de Chocolate", "Os Goonies" e "Clube da Luta"
 
 ```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
+ db.registros.insertMany([
+  {
+    nome_do_filme: "A Fantástica Fábrica de Chocolate",
+    ano_cerimonia: null,
+    categoria: "Filme Musical",
+    vencedor: "0"
+  },
+  {
+    nome_do_filme: "Os Goonies",
+    ano_cerimonia: null,      
+    categoria: "Aventura",
+    vencedor: "0"
+  },
+  {
+    nome_do_filme: "Clube da Luta",
+    ano_cerimonia: null,
+    categoria: "Drama",
+    vencedor: "0"
+  }
+])
+
 ```
 
-* Denzel Washington já ganhou algum Oscar?
+* Pensando no ano em que você nasceu: Qual foi o Oscar de melhor filme, Melhor Atriz e Melhor Diretor?
 
-R:
+R: Melhor Filme: "Crash", Melhor Atriz: Reese Witherspoon por "Johnny & June" (Walk the Line), Melhor Diretor: Ang Lee por "O Segredo de Brokeback Mountain" (Brokeback Mountain)
 
 ```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
+ db.registros.insertMany([
+  {
+    nome_do_filme: "Crash",
+    ano_cerimonia: 2005,
+    categoria: "CINEMATOGRAPHY",
+    vencedor: "1"
+  },
+  {
+    nome_do_filme: "Johnny & June",
+    ano_cerimonia: 2005,
+    categoria: "ACTRESS",
+    vencedor: "1"
+  },
+  {
+    nome_do_filme: "O Segredo de Brokeback Mountain",
+    ano_cerimonia: 2005,
+    categoria: "DIRECTING",
+    vencedor: "1"
+  }
+])
+
 ```
 
-* Quais os filmes que ganharam o Oscar de Melhor Filme?
 
-R:
-
-```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
-```
-
-* Bonus: Quais os filmes que ganharam o Oscar de Melhor Filme e Melhor Diretor na mesma cerimonia?
-
-R:
-
-```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
-```
-
-* Bonus: Denzel Washington e Jamie Foxx já concorreram ao Oscar no mesmo ano?
-
-R:
-
-```js
- db.oscar.find({"Nome": "Natalie Portman"}).countDocuments()
-```
